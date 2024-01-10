@@ -565,7 +565,12 @@ module.exports = grammar({
     ),
 
     block: $ => seq(
-      '{', repeat($.statement), '}',
+      '{',
+      repeat(choice(
+        $.class_declaration,
+        $.statement
+      )),
+      '}',
     ),
 
     expression_statement: $ => seq(
