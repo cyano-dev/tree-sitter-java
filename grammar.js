@@ -567,8 +567,8 @@ module.exports = grammar({
     block: $ => seq(
       '{',
       repeat(choice(
-        $.class_declaration,
-        $.statement
+        $.statement,
+        $.class_declaration
       )),
       '}',
     ),
