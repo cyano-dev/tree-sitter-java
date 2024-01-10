@@ -62,7 +62,7 @@ module.exports = grammar({
     $._simple_type,
     $._unannotated_type,
     $.module_directive,
-    $.top_level_class_or_interface_declaration,
+    $.top_level_declaration,
   ],
 
   inline: $ => [
@@ -95,7 +95,7 @@ module.exports = grammar({
         seq(
             optional($.package_declaration),
             repeat($.import_declaration),
-            repeat($.top_level_class_or_interface_declaration)
+            repeat($.top_level_declaration)
         ),
         seq(
            repeat($.import_declaration),
@@ -757,7 +757,7 @@ module.exports = grammar({
 
     // Declarations
 
-    top_level_class_or_interface_declaration: $ => prec(PREC.DECL, choice(
+    top_level_declaration: $ => prec(PREC.DECL, choice(
       $.class_declaration,
       $.record_declaration,
       $.interface_declaration,
