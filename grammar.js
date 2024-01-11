@@ -246,7 +246,7 @@ module.exports = grammar({
     assignment_expression: $ => prec.right(PREC.ASSIGN, seq(
       field('left', choice(
         $.identifier,
-        $._reserved_identifier,
+        $._permitted_keyword_identifier,
         $.field_access,
         $.array_access
       )),
@@ -290,7 +290,7 @@ module.exports = grammar({
       choice(
         seq(
           field('right', $._type),
-          optional(field('name', choice($.identifier, $._reserved_identifier))),
+          optional(field('name', choice($.identifier, $._permitted_keyword_identifier))),
         ),
         field('pattern', $.record_pattern),
       ),
@@ -298,7 +298,7 @@ module.exports = grammar({
 
     lambda_expression: $ => seq(
       field('parameters', choice(
-        $.identifier, $.formal_parameters, $.inferred_parameters, $._reserved_identifier
+        $.identifier, $.formal_parameters, $.inferred_parameters, $._permitted_keyword_identifier
       )),
       '->',
       field('body', choice($.expression, $.block))
@@ -306,7 +306,7 @@ module.exports = grammar({
 
     inferred_parameters: $ => seq(
       '(',
-      commaSep1(choice($.identifier, $._reserved_identifier)),
+      commaSep1(choice($.identifier, $._permitted_keyword_identifier)),
       ')'
     ),
 
@@ -343,7 +343,7 @@ module.exports = grammar({
       $.class_literal,
       $.this,
       $.identifier,
-      $._reserved_identifier,
+      $._permitted_keyword_identifier,
       $.parenthesized_expression,
       $.object_creation_expression,
       $.field_access,
@@ -405,7 +405,7 @@ module.exports = grammar({
         $.super
       )),
       '.',
-      field('field', choice($.identifier, $._reserved_identifier, $.this))
+      field('field', choice($.identifier, $._permitted_keyword_identifier, $.this))
     ),
 
     template_expression: $ => seq(
@@ -423,7 +423,7 @@ module.exports = grammar({
 
     method_invocation: $ => seq(
       choice(
-        field('name', choice($.identifier, $._reserved_identifier)),
+        field('name', choice($.identifier, $._permitted_keyword_identifier)),
         seq(
           field('object', choice($.primary_expression, $.super)),
           '.',
@@ -432,7 +432,7 @@ module.exports = grammar({
             '.'
           )),
           field('type_arguments', optional($.type_arguments)),
-          field('name', choice($.identifier, $._reserved_identifier)),
+          field('name', choice($.identifier, $._permitted_keyword_identifier)),
         )
       ),
       field('arguments', $.argument_list)
@@ -509,14 +509,14 @@ module.exports = grammar({
       $.type_pattern,
       $.record_pattern,
     ),
-    type_pattern: $ => seq($._unannotated_type, choice($.identifier, $._reserved_identifier)),
-    record_pattern: $ => seq(choice($.identifier, $._reserved_identifier, $.generic_type), $.record_pattern_body),
+    type_pattern: $ => seq($._unannotated_type, choice($.identifier, $._permitted_keyword_identifier)),
+    record_pattern: $ => seq(choice($.identifier, $._permitted_keyword_identifier, $.generic_type), $.record_pattern_body),
     record_pattern_body: $ => seq('(', commaSep(choice($.record_pattern_component, $.record_pattern)), ')'),
     record_pattern_component: $ => choice(
       $.underscore_pattern,
       seq(
         $._unannotated_type,
-        choice($.identifier, $._reserved_identifier)
+        choice($.identifier, $._permitted_keyword_identifier)
     )),
 
     underscore_pattern: $ => '_',
@@ -991,7 +991,7 @@ module.exports = grammar({
 
     _name: $ => choice(
       $.identifier,
-      $._reserved_identifier,
+      $._permitted_keyword_identifier,
       $.scoped_identifier
     ),
 
@@ -1042,7 +1042,7 @@ module.exports = grammar({
     annotation_type_element_declaration: $ => seq(
       optional($.modifiers),
       field('type', $._unannotated_type),
-      field('name', choice($.identifier, $._reserved_identifier)),
+      field('name', choice($.identifier, $._permitted_keyword_identifier)),
       '(', ')',
       field('dimensions', optional($.dimensions)),
       optional($._default_value),
@@ -1101,7 +1101,7 @@ module.exports = grammar({
     ),
 
     _variable_declarator_id: $ => seq(
-      field('name', choice($.identifier, $._reserved_identifier, $.underscore_pattern)),
+      field('name', choice($.identifier, $._permitted_keyword_identifier, $.underscore_pattern)),
       field('dimensions', optional($.dimensions))
     ),
 
@@ -1196,7 +1196,7 @@ module.exports = grammar({
     ),
 
     _method_declarator: $ => seq(
-      field('name', choice($.identifier, $._reserved_identifier)),
+      field('name', choice($.identifier, $._permitted_keyword_identifier)),
       field('parameters', $.formal_parameters),
       field('dimensions', optional($.dimensions))
     ),
@@ -1256,7 +1256,7 @@ module.exports = grammar({
       field('body', $.block)
     ),
 
-    _reserved_identifier: $ => prec(-3, alias(
+    _permitted_keyword_identifier: $ => prec(-3, alias(
       /(open|module|record|with|yield|sealed)/,
       $.identifier,
     )),
