@@ -1612,7 +1612,7 @@
                 },
                 {
                   "type": "SYMBOL",
-                  "name": "_reserved_identifier"
+                  "name": "_permitted_keyword_identifier"
                 },
                 {
                   "type": "SYMBOL",
@@ -2384,7 +2384,7 @@
                             },
                             {
                               "type": "SYMBOL",
-                              "name": "_reserved_identifier"
+                              "name": "_permitted_keyword_identifier"
                             }
                           ]
                         }
@@ -2432,7 +2432,7 @@
               },
               {
                 "type": "SYMBOL",
-                "name": "_reserved_identifier"
+                "name": "_permitted_keyword_identifier"
               }
             ]
           }
@@ -2479,7 +2479,7 @@
                 },
                 {
                   "type": "SYMBOL",
-                  "name": "_reserved_identifier"
+                  "name": "_permitted_keyword_identifier"
                 }
               ]
             },
@@ -2501,7 +2501,7 @@
                       },
                       {
                         "type": "SYMBOL",
-                        "name": "_reserved_identifier"
+                        "name": "_permitted_keyword_identifier"
                       }
                     ]
                   }
@@ -2744,7 +2744,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_reserved_identifier"
+          "name": "_permitted_keyword_identifier"
         },
         {
           "type": "SYMBOL",
@@ -3091,7 +3091,7 @@
               },
               {
                 "type": "SYMBOL",
-                "name": "_reserved_identifier"
+                "name": "_permitted_keyword_identifier"
               },
               {
                 "type": "SYMBOL",
@@ -3174,7 +3174,7 @@
                   },
                   {
                     "type": "SYMBOL",
-                    "name": "_reserved_identifier"
+                    "name": "_permitted_keyword_identifier"
                   }
                 ]
               }
@@ -3252,7 +3252,7 @@
                       },
                       {
                         "type": "SYMBOL",
-                        "name": "_reserved_identifier"
+                        "name": "_permitted_keyword_identifier"
                       }
                     ]
                   }
@@ -3730,7 +3730,7 @@
             },
             {
               "type": "SYMBOL",
-              "name": "_reserved_identifier"
+              "name": "_permitted_keyword_identifier"
             }
           ]
         }
@@ -3748,7 +3748,7 @@
             },
             {
               "type": "SYMBOL",
-              "name": "_reserved_identifier"
+              "name": "_permitted_keyword_identifier"
             },
             {
               "type": "SYMBOL",
@@ -3849,7 +3849,7 @@
                 },
                 {
                   "type": "SYMBOL",
-                  "name": "_reserved_identifier"
+                  "name": "_permitted_keyword_identifier"
                 }
               ]
             }
@@ -6315,7 +6315,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_reserved_identifier"
+          "name": "_permitted_keyword_identifier"
         },
         {
           "type": "SYMBOL",
@@ -6579,7 +6579,7 @@
               },
               {
                 "type": "SYMBOL",
-                "name": "_reserved_identifier"
+                "name": "_permitted_keyword_identifier"
               }
             ]
           }
@@ -6905,7 +6905,7 @@
               },
               {
                 "type": "SYMBOL",
-                "name": "_reserved_identifier"
+                "name": "_permitted_keyword_identifier"
               },
               {
                 "type": "SYMBOL",
@@ -7300,7 +7300,7 @@
               },
               {
                 "type": "SYMBOL",
-                "name": "_reserved_identifier"
+                "name": "_permitted_keyword_identifier"
               }
             ]
           }
@@ -7662,7 +7662,7 @@
         }
       ]
     },
-    "_reserved_identifier": {
+    "_permitted_keyword_identifier": {
       "type": "PREC",
       "value": -3,
       "content": {
