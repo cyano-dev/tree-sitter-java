@@ -1257,14 +1257,7 @@ module.exports = grammar({
     ),
 
     _reserved_identifier: $ => prec(-3, alias(
-      choice(
-        'open',
-        'module',
-        'record',
-        'with',
-        'yield',
-        'sealed',
-      ),
+      /(open|module|record|with|yield|sealed)/,
       $.identifier,
     )),
 

@@ -7710,33 +7710,8 @@
       "content": {
         "type": "ALIAS",
         "content": {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "open"
-            },
-            {
-              "type": "STRING",
-              "value": "module"
-            },
-            {
-              "type": "STRING",
-              "value": "record"
-            },
-            {
-              "type": "STRING",
-              "value": "with"
-            },
-            {
-              "type": "STRING",
-              "value": "yield"
-            },
-            {
-              "type": "STRING",
-              "value": "sealed"
-            }
-          ]
+          "type": "PATTERN",
+          "value": "(open|module|record|with|yield|sealed)"
         },
         "named": true,
         "value": "identifier"
