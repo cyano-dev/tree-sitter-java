@@ -48,6 +48,8 @@ pub fn language() -> Language {
 /// The source of the Java tree-sitter grammar description.
 pub const GRAMMAR: &str = include_str!("../../grammar.js");
 
+pub const GRAMMAR_JSON: &str = include_str!("../../src/grammar.json");
+
 /// The syntax highlighting query for this language.
 pub const HIGHLIGHT_QUERY: &str = include_str!("../../queries/highlights.scm");
 
