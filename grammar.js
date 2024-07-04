@@ -1274,15 +1274,19 @@ module.exports = grammar({
       $.block_comment,
     ),
 
-    line_comment: $ => token(prec(PREC.COMMENT, seq('//', /[^\n]*/))),
+    line_comment: $ => prec(PREC.COMMENT, seq('//', $.line_comment_body)),
 
-    block_comment: $ => token(prec(PREC.COMMENT,
+    line_comment_body: $ => /[^\n]*/,
+
+    block_comment: $ => prec(PREC.COMMENT,
       seq(
         '/*',
-        /[^*]*\*+([^/*][^*]*\*+)*/,
+        $.block_comment_body,
         '/'
       )
-    )),
+    ),
+
+    block_comment_body: $ => /[^*]*\*+([^/*][^*]*\*+)*/,
   }
 });
 
