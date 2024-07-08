@@ -7733,9 +7733,21 @@
       "type": "PATTERN",
       "value": "[^*]*\\*+([^/*][^*]*\\*+)*"
     },
-    "whitespace": {
+    "newline": {
       "type": "PATTERN",
-      "value": "[\\s]"
+      "value": "[\\n]"
+    },
+    "carriage_return": {
+      "type": "PATTERN",
+      "value": "[\\r]"
+    },
+    "tab": {
+      "type": "PATTERN",
+      "value": "[\\t]"
+    },
+    "space": {
+      "type": "PATTERN",
+      "value": "[ ]"
     },
     "extras_rule": {
       "type": "PREC",
@@ -7749,7 +7761,19 @@
           },
           {
             "type": "SYMBOL",
-            "name": "whitespace"
+            "name": "newline"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "carriage_return"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "tab"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "space"
           }
         ]
       }
@@ -7766,7 +7790,19 @@
     },
     {
       "type": "SYMBOL",
-      "name": "whitespace"
+      "name": "newline"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "carriage_return"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "tab"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "space"
     }
   ],
   "conflicts": [

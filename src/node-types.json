@@ -200,11 +200,23 @@
     "named": true,
     "subtypes": [
       {
+        "type": "carriage_return",
+        "named": true
+      },
+      {
         "type": "comment",
         "named": true
       },
       {
-        "type": "whitespace",
+        "type": "newline",
+        "named": true
+      },
+      {
+        "type": "space",
+        "named": true
+      },
+      {
+        "type": "tab",
         "named": true
       }
     ]
@@ -4311,6 +4323,10 @@
     "named": false
   },
   {
+    "type": "carriage_return",
+    "named": true
+  },
+  {
     "type": "case",
     "named": false
   },
@@ -4451,6 +4467,10 @@
     "named": false
   },
   {
+    "type": "newline",
+    "named": true
+  },
+  {
     "type": "non-sealed",
     "named": false
   },
@@ -4515,6 +4535,10 @@
     "named": false
   },
   {
+    "type": "space",
+    "named": true
+  },
+  {
     "type": "static",
     "named": false
   },
@@ -4537,6 +4561,10 @@
   {
     "type": "synchronized",
     "named": false
+  },
+  {
+    "type": "tab",
+    "named": true
   },
   {
     "type": "this",
@@ -4597,10 +4625,6 @@
   {
     "type": "while",
     "named": false
-  },
-  {
-    "type": "whitespace",
-    "named": true
   },
   {
     "type": "with",
