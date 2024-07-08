@@ -4606,6 +4606,10 @@
     "named": false
   },
   {
+    "type": "whitespace",
+    "named": true
+  },
+  {
     "type": "with",
     "named": false
   },
