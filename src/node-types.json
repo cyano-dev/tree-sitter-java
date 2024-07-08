@@ -196,6 +196,20 @@
     ]
   },
   {
+    "type": "extras_rule",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "comment",
+        "named": true
+      },
+      {
+        "type": "whitespace",
+        "named": true
+      }
+    ]
+  },
+  {
     "type": "module_directive",
     "named": true,
     "subtypes": [

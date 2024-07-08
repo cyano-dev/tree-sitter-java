@@ -54,6 +54,7 @@ module.exports = grammar({
   ],
 
   supertypes: $ => [
+    $.extras_rule,
     $.expression,
     $.statement,
     $.primary_expression,
@@ -1309,7 +1310,7 @@ module.exports = grammar({
 
     whitespace: $ => /[\s]/,
 
-    extras: $ => prec(PREC.COMMENT, optional(repeat(choice($.comment, $.whitespace)))),
+    extras_rule: $ => prec(PREC.COMMENT, choice($.comment, $.whitespace)),
   }
 });
 
