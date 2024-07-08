@@ -7732,6 +7732,38 @@
     "block_comment_body": {
       "type": "PATTERN",
       "value": "[^*]*\\*+([^/*][^*]*\\*+)*"
+    },
+    "whitespace": {
+      "type": "PATTERN",
+      "value": "[\\s]"
+    },
+    "extras": {
+      "type": "PREC",
+      "value": 0,
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "REPEAT",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "comment"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "whitespace"
+                }
+              ]
+            }
+          },
+          {
+            "type": "BLANK"
+          }
+        ]
+      }
     }
   },
   "extras": [
@@ -7744,8 +7776,8 @@
       "name": "block_comment"
     },
     {
-      "type": "PATTERN",
-      "value": "\\s"
+      "type": "SYMBOL",
+      "name": "whitespace"
     }
   ],
   "conflicts": [
