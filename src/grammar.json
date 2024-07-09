@@ -7735,19 +7735,19 @@
     },
     "newline": {
       "type": "PATTERN",
-      "value": "[\\n]"
+      "value": "[\\n]+"
     },
     "carriage_return": {
       "type": "PATTERN",
-      "value": "[\\r]"
+      "value": "[\\r]+"
     },
     "tab": {
       "type": "PATTERN",
-      "value": "[\\t]"
+      "value": "[\\t]+"
     },
     "space": {
       "type": "PATTERN",
-      "value": "[ ]"
+      "value": "[ ]+"
     },
     "extras_rule": {
       "type": "PREC",

@@ -50,10 +50,10 @@ module.exports = grammar({
   extras: $ => [
     $.line_comment,
     $.block_comment,
-    $.newline,
-    $.carriage_return,
-    $.tab,
-    $.space,
+    $.newlines,
+    $.carriage_returns,
+    $.tabs,
+    $.spaces,
   ],
 
   supertypes: $ => [
@@ -1311,12 +1311,12 @@ module.exports = grammar({
 
     block_comment_body: $ => /[^*]*\*+([^/*][^*]*\*+)*/,
 
-    newline: $ => /[\n]/,
-    carriage_return: $ => /[\r]/,
-    tab: $ => /[\t]/,
-    space: $ => /[ ]/,
+    newlines: $ => /[\n]+/,
+    carriage_returns: $ => /[\r]+/,
+    tabs: $ => /[\t]+/,
+    spaces: $ => /[ ]+/,
 
-    extras_rule: $ => prec(PREC.COMMENT, choice($.comment, $.newline, $.carriage_return, $.tab, $.space)),
+    extras_rule: $ => prec(PREC.COMMENT, choice($.comment, $.newlines, $.carriage_returns, $.tabs, $.spaces)),
   }
 });
 
