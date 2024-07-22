@@ -196,32 +196,6 @@
     ]
   },
   {
-    "type": "extras_rule",
-    "named": true,
-    "subtypes": [
-      {
-        "type": "carriage_return",
-        "named": true
-      },
-      {
-        "type": "comment",
-        "named": true
-      },
-      {
-        "type": "newline",
-        "named": true
-      },
-      {
-        "type": "space",
-        "named": true
-      },
-      {
-        "type": "tab",
-        "named": true
-      }
-    ]
-  },
-  {
     "type": "module_directive",
     "named": true,
     "subtypes": [
@@ -4323,10 +4297,6 @@
     "named": false
   },
   {
-    "type": "carriage_return",
-    "named": true
-  },
-  {
     "type": "case",
     "named": false
   },
@@ -4467,10 +4437,6 @@
     "named": false
   },
   {
-    "type": "newline",
-    "named": true
-  },
-  {
     "type": "non-sealed",
     "named": false
   },
@@ -4535,10 +4501,6 @@
     "named": false
   },
   {
-    "type": "space",
-    "named": true
-  },
-  {
     "type": "static",
     "named": false
   },
@@ -4561,10 +4523,6 @@
   {
     "type": "synchronized",
     "named": false
-  },
-  {
-    "type": "tab",
-    "named": true
   },
   {
     "type": "this",
@@ -4625,6 +4583,14 @@
   {
     "type": "while",
     "named": false
+  },
+  {
+    "type": "whitespace_block",
+    "named": true
+  },
+  {
+    "type": "whitespace_inline",
+    "named": true
   },
   {
     "type": "with",

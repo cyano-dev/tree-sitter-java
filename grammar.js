@@ -17,6 +17,7 @@ const HEX_DIGITS = token(sep1(/[A-Fa-f0-9]+/, '_'));
 
 const PREC = {
   // https://introcs.cs.princeton.edu/java/11precedence/
+  LEADING: -1,
   COMMENT: 0,         // //  /*  */
   ASSIGN: 1,          // =  += -=  *=  /=  %=  &=  ^=  |=  <<=  >>=  >>>=
   DECL: 2,
@@ -50,14 +51,11 @@ module.exports = grammar({
   extras: $ => [
     $.line_comment,
     $.block_comment,
-    $.newlines,
-    $.carriage_returns,
-    $.tabs,
-    $.spaces,
+    $.whitespace_inline,
+    $.whitespace_block,
   ],
 
   supertypes: $ => [
-    $.extras_rule,
     $.expression,
     $.statement,
     $.primary_expression,
@@ -1311,12 +1309,34 @@ module.exports = grammar({
 
     block_comment_body: $ => /[^*]*\*+([^/*][^*]*\*+)*/,
 
-    newlines: $ => /[\n]+/,
-    carriage_returns: $ => /[\r]+/,
-    tabs: $ => /[\t]+/,
-    spaces: $ => /[ ]+/,
+    whitespace_inline: $ => /[ \t]+/,
 
-    extras_rule: $ => prec(PREC.COMMENT, choice($.comment, $.newlines, $.carriage_returns, $.tabs, $.spaces)),
+    // Trailing whitespace needs to end with newlines or carriage returns so that a new line is started ready for the leading extras
+    whitespace_block: $ => /\s*?(\r\n|\r|\n)+/,
+
+    _leading_extras: $ => repeat(
+      choice(
+        $._leading_comments,
+        $.whitespace_inline, // Leading spaces on the same line. Could be the start of a line or could be midway
+      )
+    ),
+
+    // Comments that precede anything, regardless of the amount of whitespace afterwards, are attached to that element
+    _leading_comments: $ => seq(
+      $.comment,
+      $.whitespace_block,
+    ),
+
+    _trailing_extras: $ => prec(PREC.LEADING, choice(
+        $.whitespace_block,
+        // Trailing comments are only captured at the end of an element if they start on the same line, followed by any other block of whitespace
+        seq(
+          optional($.whitespace_inline),
+          $.comment,
+          optional($.whitespace_block),
+        )
+      )
+    ),
   }
 });
 
