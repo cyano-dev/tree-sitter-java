@@ -3,29 +3,30 @@ const DECIMAL_DIGITS = token(sep1(/[0-9]+/, '_'))
 const HEX_DIGITS = token(sep1(/[A-Fa-f0-9]+/, '_'))
 const PREC = {
   // https://introcs.cs.princeton.edu/java/11precedence/
-  COMMENT: 0,      // //  /*  */
-  ASSIGN: 1,       // =  += -=  *=  /=  %=  &=  ^=  |=  <<=  >>=  >>>=
-  DECL: 2,
-  ELEMENT_VAL: 2,
-  TERNARY: 3,      // ?:
-  OR: 4,           // ||
-  AND: 5,          // &&
-  BIT_OR: 6,       // |
-  BIT_XOR: 7,      // ^
-  BIT_AND: 8,      // &
-  EQUALITY: 9,     // ==  !=
-  GENERIC: 10,
-  REL: 10,         // <  <=  >  >=  instanceof
-  SHIFT: 11,       // <<  >>  >>>
-  ADD: 12,         // +  -
-  MULT: 13,        // *  /  %
-  CAST: 14,        // (Type)
-  OBJ_INST: 14,    // new
-  UNARY: 15,       // ++a  --a  a++  a--  +  -  !  ~
-  ARRAY: 16,       // [Index]
-  OBJ_ACCESS: 16,  // .
-  PARENS: 16,      // (Expression)
-  CLASS_LITERAL: 17,  // .
+  LEADING: 0,
+  COMMENT: 1,      // //  /*  */
+  ASSIGN: 2,       // =  += -=  *=  /=  %=  &=  ^=  |=  <<=  >>=  >>>=
+  DECL: 3,
+  ELEMENT_VAL: 3,
+  TERNARY: 4,      // ?:
+  OR: 5,           // ||
+  AND: 6,          // &&
+  BIT_OR: 7,       // |
+  BIT_XOR: 8,      // ^
+  BIT_AND: 9,      // &
+  EQUALITY: 10,     // ==  !=
+  GENERIC: 11,
+  REL: 11,         // <  <=  >  >=  instanceof
+  SHIFT: 12,       // <<  >>  >>>
+  ADD: 13,         // +  -
+  MULT: 14,        // *  /  %
+  CAST: 15,        // (Type)
+  OBJ_INST: 15,    // new
+  UNARY: 16,       // ++a  --a  a++  a--  +  -  !  ~
+  ARRAY: 17,       // [Index]
+  OBJ_ACCESS: 17,  // .
+  PARENS: 17,      // (Expression)
+  CLASS_LITERAL: 18,  // .
 };
 
 module.exports = grammar({
@@ -34,14 +35,11 @@ module.exports = grammar({
   extras: $ => [
     $.line_comment,
     $.block_comment,
-    $.newlines,
-    $.carriage_returns,
-    $.tabs,
-    $.spaces,
+    $.whitespace_inline,
+    $.whitespace_block,
   ],
 
   supertypes: $ => [
-    $.extras_rule,
     $.expression,
     $.statement,
     $.primary_expression,
@@ -1292,12 +1290,34 @@ module.exports = grammar({
 
     block_comment_body: $ => /[^*]*\*+([^/*][^*]*\*+)*/,
 
-    newlines: $ => /[\n]+/,
-    carriage_returns: $ => /[\r]+/,
-    tabs: $ => /[\t]+/,
-    spaces: $ => /[ ]+/,
+    whitespace_inline: $ => /[ \t]+/,
 
-    extras_rule: $ => prec(PREC.COMMENT, choice($.comment, $.newlines, $.carriage_returns, $.tabs, $.spaces)),
+    // Trailing whitespace needs to end with newlines or carriage returns so that a new line is started ready for the leading extras
+    whitespace_block: $ => /\s*?(\r\n|\r|\n)+/,
+
+    _leading_extras: $ => repeat(
+      choice(
+        $._leading_comments,
+        $.whitespace_inline, // Leading spaces on the same line. Could be the start of a line or could be midway
+      )
+    ),
+
+    // Comments that precede anything, regardless of the amount of whitespace afterwards, are attached to that element
+    _leading_comments: $ => seq(
+      $.comment,
+      $.whitespace_block,
+    ),
+
+    _trailing_extras: $ => prec(PREC.LEADING, choice(
+        $.whitespace_block,
+        // Trailing comments are only captured at the end of an element if they start on the same line, followed by any other block of whitespace
+        seq(
+          optional($.whitespace_inline),
+          $.comment,
+          optional($.whitespace_block),
+        )
+      )
+    ),
   }
 });
 
