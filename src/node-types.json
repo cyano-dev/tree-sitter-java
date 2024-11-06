@@ -2440,6 +2440,25 @@
     }
   },
   {
+    "type": "leading_extras",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "whitespace_block",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "line_comment",
     "named": true,
     "fields": {},
@@ -3704,6 +3723,29 @@
       "types": [
         {
           "type": "_type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "trailing_extras",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "whitespace_block",
+          "named": true
+        },
+        {
+          "type": "whitespace_inline",
           "named": true
         }
       ]

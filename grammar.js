@@ -17,6 +17,7 @@ const HEX_DIGITS = token(sep1(/[A-Fa-f0-9]+/, '_'));
 
 const PREC = {
   // https://introcs.cs.princeton.edu/java/11precedence/
+  TRAILING: -2,
   LEADING: -1,
   COMMENT: 0,         // //  /*  */
   ASSIGN: 1,          // =  += -=  *=  /=  %=  &=  ^=  |=  <<=  >>=  >>>=
@@ -49,10 +50,9 @@ module.exports = grammar({
   name: 'java',
 
   extras: $ => [
-    $.line_comment,
-    $.block_comment,
-    $.whitespace_inline,
-    $.whitespace_block,
+    $.leading_extras,
+    $.trailing_extras,
+    // $.whitespace_inline, // TODO: Grammar generates ok with this present too.
   ],
 
   supertypes: $ => [
@@ -1315,27 +1315,29 @@ module.exports = grammar({
     // Trailing whitespace needs to end with newlines or carriage returns so that a new line is started ready for the leading extras
     whitespace_block: $ => /\s*?(\r\n|\r|\n)+/,
 
-    _leading_extras: $ => repeat(
-      choice(
-        $._leading_comments,
-        $.whitespace_inline, // Leading spaces on the same line. Could be the start of a line or could be midway
-      )
+    leading_extras: $ => prec(PREC.LEADING,
+      // choice(
+        seq(
+          $.comment,
+          $.whitespace_block,
+        ),
+      //   $.whitespace_inline, // Leading spaces on the same line. Could be the start of a line or could be midway
+      // )
     ),
 
     // Comments that precede anything, regardless of the amount of whitespace afterwards, are attached to that element
-    _leading_comments: $ => seq(
-      $.comment,
-      $.whitespace_block,
-    ),
+    // _leading_comments: $ => seq(
+    //   $.comment,
+    //   $.whitespace_block,
+    // ),
 
-    _trailing_extras: $ => prec(PREC.LEADING, choice(
-        $.whitespace_block,
+    trailing_extras: $ => prec(PREC.TRAILING, seq(
         // Trailing comments are only captured at the end of an element if they start on the same line, followed by any other block of whitespace
-        seq(
+        optional(seq(
           optional($.whitespace_inline),
           $.comment,
-          optional($.whitespace_block),
-        )
+        )),
+        $.whitespace_block,
       )
     ),
   }
